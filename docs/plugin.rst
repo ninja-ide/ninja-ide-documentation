@@ -45,9 +45,7 @@ Plugin Descriptor file
 
 This is just a JSON notation file with the extension “.plugin”. This
 file helps NINJA-IDE to detect and manage your plugin. The following
-information about the plugin should be inside it.
-
-.. code::python
+information about the plugin should be inside it.::
 
     {
       "module": "my_plugin",
@@ -73,11 +71,9 @@ This class provide a easy way to request and get the NINJA-IDE services
 from your plugin. This class has two methods one for get a service and
 other for get all services names.
 
-To get a service:
+To get a service::
 
-.. code::python
-
-       one_service = service_locator.get_service("name_of_the_Service")
+    one_service = service_locator.get_service("name_of_the_Service")
 
 To check all the possible services:
 
