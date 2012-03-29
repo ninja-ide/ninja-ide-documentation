@@ -136,7 +136,7 @@ download pandoc if you want to convert large files.
 Example
 ~~~~~~~
 
-::
+.. code:: python
 
     from ninja_ide.core import pluginfrom ninja_ide.core import plugin_interfacesfrom PyQt4.QtGui import QWidgetclass MyPluginExample(plugin.Plugin):    def initialize(self):        print "The plugin is loading..."        print "plugin information: %s" % self.metadata        print "service locator: %s" % self.locator    def finish(self):        print "The plugin is shutting down because the user has closed NINJA-IDE"    def get_preferences_widget(self):        pass
 
@@ -152,7 +152,7 @@ IProjectTypeHandler
 This interface is useful if you want to add a new type of project to
 NINJA-IDE.
 
-::
+.. code:: python
 
         def get_pages(self):        """        Should Returns a collection of QWizardPage or subclass        """    def on_wizard_finish(self, wizard):        """        Called when the user finish the wizard        """    def get_context_menus(self):        """"        Should Returns an iterable of QMenu for the context type of the new project type        """
 
@@ -450,7 +450,7 @@ NINJA-IDE plugins menu.
 
 To add one action to the NINJA-IDE we should do:
 
-::
+.. code:: python
 
     ...SERVICE_NAME = "menuApp"menu_service = self.locator.get_service(SERVICE_NAME)#instanciate a QAction (or subclass)one_action = QAction(...)#add the action to NINJA-IDEmenu_service.add_action(one_action)
 
