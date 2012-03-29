@@ -75,9 +75,7 @@ To get a service::
 
     one_service = service_locator.get_service("name_of_the_Service")
 
-To check all the possible services:
-
-.. code::python
+To check all the possible services::
 
        for service_name in service_locator.get_availables_services():
           print service_name
@@ -162,17 +160,25 @@ IPluginPreferences
 ~~~~~~~~~~~~~~~~~~
 
 This interface is useful if you want to add a custom preferences for
-your plugin.
+your plugin.::
 
-.. code::python
+    def obtain_symbols(self, source):
+        """ 
+        Returns the dict needed by the tree
+        Source code in plain text
+        """
 
-        def obtain_symbols(self, source):        """        Returns the dict needed by the tree        Source code in plain text        """
+NOTE: Must return the following structure::
 
-NOTE: Must return the following structure
-
-.. code::python
-
-       {     'attributes':         {name: line, name: line},     'functions':         {name: line, name: line},     'classes':         {         name: (line, {                     'attributes': {name: line},                     'function': {name: line}}             )         }     }
+       {
+             'attributes': {name: line, name: line},
+             'functions':  {name: line, name: line},
+             'classes':     {name: (line, {
+                                    'attributes': {name: line},
+                                    'function': {name: line}}
+                                    )         
+                             }     
+       }
 
 Services
 --------
@@ -196,66 +202,84 @@ __________________________
 
 Emitted when the user press a key
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.editorKeyPressEvent.connect(self._do_something)def do_something(self, event):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.editorKeyPressEvent.connect(self._do_something)
+    
+    def do_something(self, event):
+        #the code go here!
 
 beforeFileSaved(fileName)
 ________________________
 
 Emitted **before** save the fileName on the disc
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.beforeFileSaved.connect(self._do_something)def do_something(self, fileName):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.beforeFileSaved.connect(self._do_something)
+    
+    def do_something(self, fileName):
+        #the code go here!
 
 fileSaved(fileName)
 __________________
 
 Emitted when the user save a file
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileSaved.connect(self._do_something)def do_something(self, fileName):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.fileSaved.connect(self._do_something)
+    
+    def do_something(self, fileName):
+        #the code go here!
 
 currentTabChanged(fileName)
 __________________________
 
 Emitted when the user change the current tab
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.currentTabChanged.connect(self._do_something)def do_something(self, fileName):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.currentTabChanged.connect(self._do_something)
+    
+    def do_something(self, fileName):
+        #the code go here!
 
 fileExecuted(fileName)
 ______________________
 
 Emitted when the user execute a file
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileExecuted.connect(self._do_something)def do_something(self, fileName):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.fileExecuted.connect(self._do_something)
+    
+    def do_something(self, fileName):
+        #the code go here!
 
 fileOpened(fileName)
 ___________________
 
 Emitted when the user open a file
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileOpened.connect(self._do_something)def do_something(self, fileName):    #the code go here!
+    SERVICE_NAME = "editor"
+    editor_service = self.locator.get_service(SERVICE_NAME)
+    editor_service.fileOpened.connect(self._do_something)
+    
+    def do_something(self, fileName):
+        #the code go here!
 
 Methods
 :::::::
@@ -388,11 +412,16 @@ This method allows to add an action (`QAction or
 subclass <http://doc.qt.nokia.com/latest/qaction.html>`_) to the
 toolbar.
 
-To add one action we should do
+To add one action we should do::
 
-.. code::python
-
-    ...SERVICE_NAME = "toolbar"toolbar_service = self.locator.get_service(SERVICE_NAME)#instanciate a QAction (or subclass)one_Action = QAction(...)#add the action to the toolbar of NINJA-IDEtoolbar_service.add_action(one_action)
+    SERVICE_NAME = "toolbar"
+    toolbar_service = self.locator.get_service(SERVICE_NAME)
+    
+    #instanciate a QAction (or subclass)
+    one_Action = QAction(...)
+    
+    #add the action to the toolbar of NINJA-IDE
+    toolbar_service.add_action(one_action)
 
 After the code above the toolbar of NINJA-IDE looks
 
@@ -425,11 +454,16 @@ This method allows to add a menu (`QMenu or
 subclass <http://doc.qt.nokia.com/latest/qmenu.html>`_) to the NINJA-IDE
 plugins menu.
 
-To add one menu to the NINJA-IDE we should do:
+To add one menu to the NINJA-IDE we should do::
 
-.. code::python
-
-    ...SERVICE_NAME = "menuApp"menu_service = self.locator.get_service(SERVICE_NAME)#instanciate a QMenu (or subclass)one_menu = QMenu(...)#add the menu to NINJA-IDEmenu_service.add_menu(one_menu)
+    SERVICE_NAME = "menuApp"
+    menu_service = self.locator.get_service(SERVICE_NAME)
+    
+    #instanciate a QMenu (or subclass)
+    one_menu = QMenu(...)
+    
+    #add the menu to NINJA-IDE
+    menu_service.add_menu(one_menu)
 
 After the code above the Plugins Menu of NINJA-IDE looks
 
@@ -484,11 +518,17 @@ This method allows to add widgets (`QWidget or
 subclass <http://doc.qt.nokia.com/latest/qwidget.html>`_) to the misc
 container.
 
-To add a widget to the misc container we should do
+To add a widget to the misc container we should do::
 
-.. code::python
-
-    ...SERVICE_NAME = "misc"misc_service = self.locator.get_service(SERVICE_NAME)#instanciate a QWidget (or subclass)my_widget = QWidget(...)icon_path = "some_plate/where/the/icon/is.png"description = "This is my widget in NINJA-IDE"#add the widget to NINJA-IDEmisc_service.add_widget(my_widget, icon_path, description)
+    SERVICE_NAME = "misc"
+    misc_service = self.locator.get_service(SERVICE_NAME)
+    
+    #instanciate a QWidget (or subclass)
+    my_widget = QWidget(...)icon_path = "some_plate/where/the/icon/is.png"
+    description = "This is my widget in NINJA-IDE"
+    
+    #add the widget to NINJA-IDE
+    misc_service.add_widget(my_widget, icon_path, description)
 
 After the code above the misc container of NINJA-IDE looks
 
@@ -542,11 +582,12 @@ symbols\_handler SHOULD have a special interface see
 ninja\_ide.core.plugin\_interfaces
 
 Example: if you want to add a new symbols handler for C++, your plugin
-should do the following:
+should do the following::
 
-.. code::python
-
-        SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    cpp_symbols_handler = CppSymbolHandler(...)    self.explorer_s.set_symbols_handler('.cpp', cpp_symbols_handler)
+    SERVICE_NAME = 'explorer'
+    self.explorer_s = self.locator.get_service(SERVICE_NAME)  
+    cpp_symbols_handler = CppSymbolHandler(...)
+    self.explorer_s.set_symbols_handler('.cpp', cpp_symbols_handler)
 
 Then all symbols in .cpp files will be handle by cpp\_symbols\_handler
 
@@ -558,11 +599,12 @@ project\_type\_handler SHOULD have a special interface see
 ninja\_ide.core.plugin\_interfaces
 
 Example: If you want to add a custom type of project, your pluging
-should do the following:
+should do the following::
 
-.. code::python
-
-        SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    foo_project_handler = FooProjectHandler(...)    self.explorer_s.set_project_type_handler('Foo Project', foo_project_handler)
+    SERVICE_NAME = 'explorer'
+    self.explorer_s = self.locator.get_service(SERVICE_NAME)
+    foo_project_handler = FooProjectHandler(...)
+    self.explorer_s.set_project_type_handler('Foo Project', foo_project_handler)
 
 Then 'Foo Project' will appear in the New Project wizard and
 foo\_project\_handler instance controls the wizard
@@ -595,18 +637,20 @@ such as .php, .py, .cpp A special case is, if you want to add an extra
 menu for all kind of files, in that case you need specify lang='all'.
 
 Example 1: if you want to add an extra menu for Python files, your
-plugin should do the following:
+plugin should do the following::
 
-.. code::python
-
-        SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    extra_menu = MyCustomMenuForPHPFiles()    self.explorer_s.add_project_menu(extra_menu, lang='.php')
+    SERVICE_NAME = 'explorer'
+    self.explorer_s = self.locator.get_service(SERVICE_NAME)
+    extra_menu = MyCustomMenuForPHPFiles()
+    self.explorer_s.add_project_menu(extra_menu, lang='.php')
 
 Example 2: if you want to add an extra menu for all files, your plugin
-should do the following:
+should do the following::
 
-.. code::python
-
-        SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    extra_menu = MyCustomMenuForPythonFiles()    self.explorer_s.add_project_menu(extra_menu, lang='all')
+    SERVICE_NAME = 'explorer'
+    self.explorer_s = self.locator.get_service(SERVICE_NAME)
+    extra_menu = MyCustomMenuForPythonFiles()
+    self.explorer_s.add_project_menu(extra_menu, lang='all')
 
 Signals
 :::::::
@@ -616,22 +660,28 @@ ____________________________
 
 Emitted when the user execute a project
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "explorer"explorer_service = self.locator.get_service(SERVICE_NAME)explorer_service.projectExecuted.connect(self._do_something)def do_something(self, projectPath):    #the code go here!
+    SERVICE_NAME = "explorer"
+    explorer_service = self.locator.get_service(SERVICE_NAME)
+    explorer_service.projectExecuted.connect(self._do_something)
+    
+    def do_something(self, projectPath):  
+        #the code go here!
 
 projectOpened(projectPath)
 __________________________
 
 Emitted when the user open a project
 
-To connect the plugin to this signal do
+To connect the plugin to this signal do::
 
-.. code::python
-
-    ...SERVICE_NAME = "explorer"explorer_service = self.locator.get_service(SERVICE_NAME)explorer_service.projectOpened.connect(self._do_something)def do_something(self, projectPath):    #the code go here!
+    SERVICE_NAME = "explorer"
+    explorer_service = self.locator.get_service(SERVICE_NAME)
+    explorer_service.projectOpened.connect(self._do_something)
+    
+    def do_something(self, projectPath):
+        #the code go here!
 
 
 TreeProjectsWidget
