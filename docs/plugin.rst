@@ -107,20 +107,17 @@ module.
 Methods
 ~~~~~~~
 
-initialize
-::::::::::
+.. method:: initialize
 
 This method is called for NINJA-IDE when your plugin is ready to start.
 This is the recommended place to request/get the NINJA-IDE services for
 your plugin.
 
-finish
-::::::
+.. method:: finish
 
 This method is called when NINJA-IDE is shutting down.
 
-get\_preferences\_widget
-::::::::::::::::::::::::
+.. method:: get\_preferences\_widget
 
 This method is called for NINJA-IDE when the user open the preferences
 dialog. This method allows us to integrate a custom configuration widget
@@ -130,9 +127,25 @@ download pandoc if you want to convert large files.
 Example
 ~~~~~~~
 
-.. code:: python
+::
 
-    from ninja_ide.core import pluginfrom ninja_ide.core import plugin_interfacesfrom PyQt4.QtGui import QWidgetclass MyPluginExample(plugin.Plugin):    def initialize(self):        print "The plugin is loading..."        print "plugin information: %s" % self.metadata        print "service locator: %s" % self.locator    def finish(self):        print "The plugin is shutting down because the user has closed NINJA-IDE"    def get_preferences_widget(self):        pass
+    from ninja_ide.core import plugin
+    from ninja_ide.core import plugin_interfaces
+    from PyQt4.QtGui
+    import QWidget
+    
+    class MyPluginExample(plugin.Plugin):
+    
+        def initialize(self):
+            print "The plugin is loading..."
+            print "plugin information: %s" % self.metadata
+            print "service locator: %s" % self.locator
+     
+       def finish(self):
+            print "The plugin is shutting down because the user has closed NINJA-IDE"
+     
+       def get_preferences_widget(self):
+            pass
 
 Plugins Interfaces
 ------------------
@@ -144,11 +157,22 @@ IProjectTypeHandler
 ~~~~~~~~~~~~~~~~~~~
 
 This interface is useful if you want to add a new type of project to
-NINJA-IDE.
+NINJA-IDE.::
 
-.. code:: python
+        def get_pages(self):
+            """
+            Should Returns a collection of QWizardPage or subclass
+            """
 
-        def get_pages(self):        """        Should Returns a collection of QWizardPage or subclass        """    def on_wizard_finish(self, wizard):        """        Called when the user finish the wizard        """    def get_context_menus(self):        """"        Should Returns an iterable of QMenu for the context type of the new project type        """
+        def on_wizard_finish(self, wizard):
+            """
+            Called when the user finish the wizard
+            """
+
+        def get_context_menus(self):
+            """
+            Should Returns an iterable of QMenu for the context type of the new project type
+            """
 
 ISymbolsHandler
 ~~~~~~~~~~~~~~~
@@ -197,14 +221,13 @@ when save a file, save project, change the current tab and others.
 Signals
 :::::::
 
-editorKeyPressEvent(QEvent)
-__________________________
+.. method:: editorKeyPressEvent(QEvent)
 
 Emitted when the user press a key
 
 To connect the plugin to this signal do
 
-.. code-block:: python
+::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
@@ -213,8 +236,7 @@ To connect the plugin to this signal do
     def do_something(self, event):
         #the code go here!
 
-beforeFileSaved(fileName)
-________________________
+.. method:: beforeFileSaved(fileName)
 
 Emitted **before** save the fileName on the disc
 
@@ -227,8 +249,7 @@ To connect the plugin to this signal do::
     def do_something(self, fileName):
         #the code go here!
 
-fileSaved(fileName)
-__________________
+.. method:: fileSaved(fileName)
 
 Emitted when the user save a file
 
@@ -241,8 +262,7 @@ To connect the plugin to this signal do::
     def do_something(self, fileName):
         #the code go here!
 
-currentTabChanged(fileName)
-__________________________
+.. method:: currentTabChanged(fileName)
 
 Emitted when the user change the current tab
 
@@ -255,8 +275,7 @@ To connect the plugin to this signal do::
     def do_something(self, fileName):
         #the code go here!
 
-fileExecuted(fileName)
-______________________
+.. method:: fileExecuted(fileName)
 
 Emitted when the user execute a file
 
@@ -269,8 +288,7 @@ To connect the plugin to this signal do::
     def do_something(self, fileName):
         #the code go here!
 
-fileOpened(fileName)
-___________________
+.. method:: fileOpened(fileName)
 
 Emitted when the user open a file
 
@@ -286,26 +304,22 @@ To connect the plugin to this signal do::
 Methods
 :::::::
 
-get\_tab\_manager(self)
-_______________________
+.. method:: get\_tab\_manager(self)
 
 This method returns the TabWidget
 (ninja\_ide.gui.main\_panel.tab\_widget.TabWidget) subclass of
 `QTabWidget <http://doc.qt.nokia.com/4.7/qtabwidget.html>`_.
 
-add\_menu(self, menu, lang=".py")
-_________________________________
+.. method:: add\_menu(self, menu, lang=".py")
 
 This method add an **extra context menu** to the editor's context menu
 (`QMenu or subclass <http://doc.qt.nokia.com/4.7/qmenu.html>`_).
 
-get\_opened\_documents(self)
-____________________________
+.. method:: get\_opened\_documents(self)
 
 This method returns the name of the open files
 
-add\_editor(self, fileName="", content=None, syntax=None)
-_________________________________________________________
+.. method:: add\_editor(self, fileName="", content=None, syntax=None)
 
 This method creates a new editor. ** fileName: Absolute path to a file
 ** content: Content for the editor if not fileName ** syntax: Syntax
@@ -314,78 +328,65 @@ name, example python **
 If the method is called without fileName and content an empty editor is
 created.
 
-get\_editor(self)
-_________________
+.. method:: get\_editor(self)
 
 This method returns the actual editor (instance of
 ninja\_ide.gui.editor.Editor) This method could return None
 
-get\_editor\_path(self)
-_______________________
+.. method:: get\_editor\_path(self)
 
 This mthod returns the actual editor's path. This method could return
 None if there is not an editor
 
-get\_project\_owner(self, editorWidget=None)
-____________________________________________
+.. method:: get\_project\_owner(self, editorWidget=None)
 
 This method return the project where the current file in the editor
 belongs, or an empty string. (If the Editor Widget is not specified, it
 returns the info from the current editor in focus)
 
-get\_text(self)
-_______________
+.. method:: get\_text(self)
 
 This method returns the plain text of the current editor or None if thre
 is not an editor.
 
-get\_selected\_text(self)
-_________________________
+.. method:: get\_selected\_text(self)
 
 This method returns the selected text of and editor. This method could
 return None
 
-insert\_text(self, text)
-________________________
+.. method:: insert\_text(self, text)
 
 This method inserts text in the current cursor position.
 
-get\_file\_syntax(self, editorWidget=None)
-__________________________________________
+.. method:: get\_file\_syntax(self, editorWidget=None)
 
 This method returns the syntax for the current file, the syntax is
 represented as a dictionary that contains the descriptor that ninja
 recognize for each language. (If the Editor Widget is not specified, it
 returns the info from the current editor in focus)
 
-jump\_to\_line(self, lineno)
-____________________________
+.. method:: jump\_to\_line(self, lineno)
 
 This method jumps to a specific line in the current editor
 
-get\_lines\_count(self)
-_______________________
+.. method:: get\_lines\_count(self)
 
 This method returns the count of lines in the current editor
 
-save\_file(self)
-________________
+.. method:: save\_file(self)
 
 This method saves the actual file
 
-open\_files(self, files, mainTab=True)
-______________________________________
+.. method:: open\_files(self, files, mainTab=True)
 
 This method opens many files each one in a different editor
 
-open\_file(self, fileName='', cursorPosition=0, positionIsLineNumber=False)
-___________________________________________________________________________
+.. method:: open\_file(self, fileName='', cursorPosition=0, positionIsLineNumber=False)
 
 This method opens a single file, if the file is already open it get
 focus
 
-open\_image(self, filename)
-___________________________
+.. method:: open\_image(self, filename)
 
 This method opens a single image
 
@@ -407,8 +408,7 @@ By Default the toolbar of NINJA-IDE looks like the image below
 Methods
 :::::::
 
-add\_action(self, action)
-_________________________
+.. method:: add\_action(self, action)
 
 This method allows to add an action (`QAction or
 subclass <http://doc.qt.nokia.com/latest/qaction.html>`_) to the
@@ -449,8 +449,7 @@ By Default the Plugins Menu of NINJA-IDE looks like the image below
 Methods
 :::::::
 
-add\_menu(self, menu)
-_____________________
+.. method:: add\_menu(self, menu)
 
 This method allows to add a menu (`QMenu or
 subclass <http://doc.qt.nokia.com/latest/qmenu.html>`_) to the NINJA-IDE
@@ -473,18 +472,22 @@ After the code above the Plugins Menu of NINJA-IDE looks
    :align: center
    :alt: 
 
-add\_action(self, action)
-_________________________
+.. method:: add\_action(self, action)
 
 This method allows to add an action (`QAction or
 subclass <http://doc.qt.nokia.com/latest/qaction.html>`_) to the
 NINJA-IDE plugins menu.
 
-To add one action to the NINJA-IDE we should do:
+To add one action to the NINJA-IDE we should do::
 
-.. code:: python
-
-    ...SERVICE_NAME = "menuApp"menu_service = self.locator.get_service(SERVICE_NAME)#instanciate a QAction (or subclass)one_action = QAction(...)#add the action to NINJA-IDEmenu_service.add_action(one_action)
+    SERVICE_NAME = "menuApp"
+    menu_service = self.locator.get_service(SERVICE_NAME)
+    
+    #instanciate a QAction (or subclass)
+    one_action = QAction(...)
+    
+    #add the action to NINJA-IDE
+    menu_service.add_action(one_action)
 
 After the code above the Plugins Menu of NINJA-IDE looks
 
@@ -513,8 +516,7 @@ The image above show the misc container the console and the icons.
 Methods
 :::::::
 
-add\_widget(self, widget, icon\_path, description)
-__________________________________________________
+.. method:: add\_widget(self, widget, icon\_path, description)
 
 This method allows to add widgets (`QWidget or
 subclass <http://doc.qt.nokia.com/latest/qwidget.html>`_) to the misc
@@ -554,30 +556,25 @@ classes.
 Methods
 :::::::
 
-get\_tree\_projects(self)
-_________________________
+.. method:: get\_tree\_projects(self)
 
 Returns the `TreeProjectsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.2>`_
 
-get\_tree\_symbols(self)
-________________________
+.. method:: get\_tree\_symbols(self)
 
 Returns the `TreeSymbolsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.5>`_
 
-get\_current\_project\_item(self)
-_________________________________
+.. method:: get\_current\_project\_item(self)
 
 Returns the current item of the tree projects (if possible) Note: This
 method is a shortcut of self.get\_tree\_projects().currentItem()
 
-get\_project\_item\_by\_name(self, projeectName)
-________________________________________________
+.. method:: get\_project\_item\_by\_name(self, projeectName)
 
 Return a ProjectItem based on the name provided, or None if an item with
 that name can not be found.
 
-set\_symbols\_handler(self, file\_extension, symbols\_handler)
-______________________________________________________________
+.. method:: set\_symbols\_handler(self, file\_extension, symbols\_handler)
 
 Add a new Symbol's handler for the given file extension Note:
 symbols\_handler SHOULD have a special interface see
@@ -593,8 +590,7 @@ should do the following::
 
 Then all symbols in .cpp files will be handle by cpp\_symbols\_handler
 
-set\_project\_type\_handler(self, project\_type, project\_type\_handler)
-________________________________________________________________________
+.. method:: set\_project\_type\_handler(self, project\_type, project\_type\_handler)
 
 Add a new Project Type and the handler for it Note:
 project\_type\_handler SHOULD have a special interface see
@@ -611,26 +607,22 @@ should do the following::
 Then 'Foo Project' will appear in the New Project wizard and
 foo\_project\_handler instance controls the wizard
 
-add\_tab(self, tab, title)
-__________________________
+.. method:: add\_tab(self, tab, title)
 
 Add a tab (`QTabWidget or
 subclass <http://doc.qt.nokia.com/4.7/qtabwidget.html>`_) with the given
 title (string)
 
-get\_actual\_project(self)
-__________________________
+.. method:: get\_actual\_project(self)
 
 Returns the path of the opened projects
 
-get\_opened\_projects(self)
-___________________________
+.. method:: get\_opened\_projects(self)
 
 Returns a list of strings with the paths of the opened projects, or an
 empty list if there isn't any opened projects
 
-add\_project\_menu(self, menu, lang='all')
-__________________________________________
+.. method:: add\_project\_menu(self, menu, lang='all')
 
 Add an extra menu(`QMenu or
 subclass <http://doc.qt.nokia.com/4.7/qmenu.html>`_) to the project
@@ -657,8 +649,7 @@ should do the following::
 Signals
 :::::::
 
-projectExecuted(projectPath)
-____________________________
+.. method:: projectExecuted(projectPath)
 
 Emitted when the user execute a project
 
@@ -671,8 +662,7 @@ To connect the plugin to this signal do::
     def do_something(self, projectPath):  
         #the code go here!
 
-projectOpened(projectPath)
-__________________________
+.. method:: projectOpened(projectPath)
 
 Emitted when the user open a project
 
