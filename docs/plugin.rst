@@ -202,7 +202,9 @@ __________________________
 
 Emitted when the user press a key
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal do
+
+.. code-block:: python
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
