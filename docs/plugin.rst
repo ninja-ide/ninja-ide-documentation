@@ -47,7 +47,7 @@ This is just a JSON notation file with the extension “.plugin”. This
 file helps NINJA-IDE to detect and manage your plugin. The following
 information about the plugin should be inside it.
 
-::
+.. code::python
 
     {
       "module": "my_plugin",
@@ -75,13 +75,13 @@ other for get all services names.
 
 To get a service:
 
-::
+.. code::python
 
        one_service = service_locator.get_service("name_of_the_Service")
 
 To check all the possible services:
 
-::
+.. code::python
 
        for service_name in service_locator.get_availables_services():
           print service_name
@@ -168,13 +168,13 @@ IPluginPreferences
 This interface is useful if you want to add a custom preferences for
 your plugin.
 
-::
+.. code::python
 
         def obtain_symbols(self, source):        """        Returns the dict needed by the tree        Source code in plain text        """
 
 NOTE: Must return the following structure
 
-::
+.. code::python
 
        {     'attributes':         {name: line, name: line},     'functions':         {name: line, name: line},     'classes':         {         name: (line, {                     'attributes': {name: line},                     'function': {name: line}}             )         }     }
 
@@ -202,7 +202,7 @@ Emitted when the user press a key
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.editorKeyPressEvent.connect(self._do_something)def do_something(self, event):    #the code go here!
 
@@ -213,7 +213,7 @@ Emitted **before** save the fileName on the disc
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.beforeFileSaved.connect(self._do_something)def do_something(self, fileName):    #the code go here!
 
@@ -224,7 +224,7 @@ Emitted when the user save a file
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileSaved.connect(self._do_something)def do_something(self, fileName):    #the code go here!
 
@@ -235,7 +235,7 @@ Emitted when the user change the current tab
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.currentTabChanged.connect(self._do_something)def do_something(self, fileName):    #the code go here!
 
@@ -246,7 +246,7 @@ Emitted when the user execute a file
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileExecuted.connect(self._do_something)def do_something(self, fileName):    #the code go here!
 
@@ -257,7 +257,7 @@ Emitted when the user open a file
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "editor"editor_service = self.locator.get_service(SERVICE_NAME)editor_service.fileOpened.connect(self._do_something)def do_something(self, fileName):    #the code go here!
 
@@ -394,7 +394,7 @@ toolbar.
 
 To add one action we should do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "toolbar"toolbar_service = self.locator.get_service(SERVICE_NAME)#instanciate a QAction (or subclass)one_Action = QAction(...)#add the action to the toolbar of NINJA-IDEtoolbar_service.add_action(one_action)
 
@@ -431,7 +431,7 @@ plugins menu.
 
 To add one menu to the NINJA-IDE we should do:
 
-::
+.. code::python
 
     ...SERVICE_NAME = "menuApp"menu_service = self.locator.get_service(SERVICE_NAME)#instanciate a QMenu (or subclass)one_menu = QMenu(...)#add the menu to NINJA-IDEmenu_service.add_menu(one_menu)
 
@@ -490,7 +490,7 @@ container.
 
 To add a widget to the misc container we should do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "misc"misc_service = self.locator.get_service(SERVICE_NAME)#instanciate a QWidget (or subclass)my_widget = QWidget(...)icon_path = "some_plate/where/the/icon/is.png"description = "This is my widget in NINJA-IDE"#add the widget to NINJA-IDEmisc_service.add_widget(my_widget, icon_path, description)
 
@@ -548,7 +548,7 @@ ninja\_ide.core.plugin\_interfaces
 Example: if you want to add a new symbols handler for C++, your plugin
 should do the following:
 
-::
+.. code::python
 
         SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    cpp_symbols_handler = CppSymbolHandler(...)    self.explorer_s.set_symbols_handler('.cpp', cpp_symbols_handler)
 
@@ -564,7 +564,7 @@ ninja\_ide.core.plugin\_interfaces
 Example: If you want to add a custom type of project, your pluging
 should do the following:
 
-::
+.. code::python
 
         SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    foo_project_handler = FooProjectHandler(...)    self.explorer_s.set_project_type_handler('Foo Project', foo_project_handler)
 
@@ -601,14 +601,14 @@ menu for all kind of files, in that case you need specify lang='all'.
 Example 1: if you want to add an extra menu for Python files, your
 plugin should do the following:
 
-::
+.. code::python
 
         SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    extra_menu = MyCustomMenuForPHPFiles()    self.explorer_s.add_project_menu(extra_menu, lang='.php')
 
 Example 2: if you want to add an extra menu for all files, your plugin
 should do the following:
 
-::
+.. code::python
 
         SERVICE_NAME = 'explorer'    self.explorer_s = self.locator.get_service(SERVICE_NAME)    extra_menu = MyCustomMenuForPythonFiles()    self.explorer_s.add_project_menu(extra_menu, lang='all')
 
@@ -622,7 +622,7 @@ Emitted when the user execute a project
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "explorer"explorer_service = self.locator.get_service(SERVICE_NAME)explorer_service.projectExecuted.connect(self._do_something)def do_something(self, projectPath):    #the code go here!
 
@@ -633,7 +633,7 @@ Emitted when the user open a project
 
 To connect the plugin to this signal do
 
-::
+.. code::python
 
     ...SERVICE_NAME = "explorer"explorer_service = self.locator.get_service(SERVICE_NAME)explorer_service.projectOpened.connect(self._do_something)def do_something(self, projectPath):    #the code go here!
 
