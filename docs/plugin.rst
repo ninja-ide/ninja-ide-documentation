@@ -29,12 +29,11 @@ Architecture
 How to create plugins
 =====================
 
-We recommend that you install and use the oficial plugin called
-**pluginProject**. That plugin helps you to create the skeleton of all plugins
-for NINJA-IDE. Also that plugin allows you to test your plugin on NINJA-IDE and
-packages your plugin to share it. You can install**pluginProject** from the
-Plugin Manager inside NINJA-IDE (Go to the Plugins menu and choose
-*Manage Plugins*).
+We recommend that you install and use the oficial plugin called **pluginProject**.
+That plugin helps you to create the skeleton of all plugins for NINJA-IDE. Also
+that plugin allows you to test your plugin on NINJA-IDE and packages your plugin
+to share it. You can install**pluginProject** from the Plugin Manager inside
+NINJA-IDE (Go to the Plugins menu and choose *Manage Plugins*).
 
 .. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/install_pluginProject.png
    :align: center
