@@ -6,5 +6,4 @@ Welcome to Ninja IDE Documentation !
    :maxdepth: 4
 
    installing
-   extending
    plugin
