@@ -1,5 +1,5 @@
 ====================================
-Welcome to Ninja IDE Documentation !
+Welcome to NINJA-IDE Documentation !
 ====================================
 
 .. toctree::

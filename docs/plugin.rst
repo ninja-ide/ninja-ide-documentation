@@ -1,15 +1,15 @@
-================
-Plugins Tutorial
-================
+===============
+Plugin Tutorial
+===============
 
 Why do we need plugins on NINJA-IDE?
 ====================================
 
-Plugins are small pieces of code which can interact with NINJA-IDE and add
+Plugins are small pieces of code that can interact with NINJA-IDE and add
 specific features to it. This is useful if you want to have special features
-which NINJA-IDE does not provide.
+that NINJA-IDE does not provide.
 
-Many times developers around the world try to collaborate to an open source
+Many times developers around the world try to collaborate on an open source
 project, but that task could be hard for many reasons. In these cases plugins
 are a good option to collaborate. You just need to learn the project API.
 
@@ -21,19 +21,20 @@ Architecture
    :align: center
       :alt: 
 
-      The image above show the connections between plugins and NINJa-IDE.
-      Plugins get services using a service locator, the service locator
-      returns the specific service and then the plugin uses the service to
+      The image above shows the connections between plugins and NINJA-IDE.
+      Plugins get services by using a service locator The service locator
+      returns the specific service and the plugin uses this service to
       talk with NINJA-IDE
 
 How to create plugins
 =====================
 
-We recommend that you install and use the oficial plugin called **pluginProject**.
-That plugin helps you to create the skeleton of all plugins for NINJA-IDE. Also
-that plugin allows you to test your plugin on NINJA-IDE and packages your plugin
-to share it. You can install**pluginProject** from the Plugin Manager inside
-NINJA-IDE (Go to the Plugins menu and choose *Manage Plugins*).
+We recommend that you install and use the oficial plugin called
+**pluginProject**. That plugin helps you to create the skeleton of all plugins
+for NINJA-IDE. That plugin allows you to test your plugin on NINJA-IDE as well
+and packages your plugin to share it. You can install**pluginProject** from the
+Plugin Manager inside NINJA-IDE (Go to the Plugins menu and choose
+*Manage Plugins*).
 
 .. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/install_pluginProject.png
    :align: center
@@ -55,19 +56,20 @@ plugin should be included:::
       "description": "Este plugin es de prueba"
     }
 
--  module: Indicates the name of the module where the Plugin class
+-  module: Indicates the name of the module where the plugin class
    resides, which will be instantiated by NINJA-IDE.
--  class: Indicates the name of the class which implements the Plugin.
+-  class: Indicates the name of the class which implements the plugin.
 -  authors: String with the author(s).
--  version: Indicates the Plugin version.
--  url: Indicates the url of the plugin may be where is the doc.
--  description: Plugin description
+-  version: Indicates the plugin version.
+-  url: Indicates the url of the plugin (the documentation could be provided
+   here).
+-  description: Plugin description.
 
 Service locator class
 ---------------------
 
 This class provides an easy way to request and get the NINJA-IDE services for
-your plugin. This class has two methods, one to get a service and one to get the
+your plugin. This class has two methods: one to get a service and one to get the
 names of all available services.
 
 To get a service::
@@ -89,7 +91,8 @@ of that your plugins are compatible with `signals/slots`_ of the Qt library.
 Attributes
 ~~~~~~~~~~
 
--  self.metadata: A Python Dictionary with the contents of the plugin descriptor file.
+-  self.metadata: A Python Dictionary with the contents of the plugin descriptor
+   file.
 -  self.locator: An instance of the ServiceLocator class.
 -  self.path: A string with the plugin directory.
 -  self.logger: An instance of `PluginLogger`_.
@@ -105,7 +108,7 @@ Methods
 
 .. method:: initialize
 
-This method is called NINJA-IDE when your plugin is ready to start.
+This method is called by NINJA-IDE when your plugin is ready to start.
 This is the recommended place to request/get the NINJA-IDE services for
 your plugin.
 
@@ -115,7 +118,7 @@ This method is called when NINJA-IDE is shutting down.
 
 .. method:: get\_preferences\_widget
 
-This method is called for NINJA-IDE when the user opens the preferences dialog.
+This method is called by NINJA-IDE when the user opens the preferences dialog.
 This method allows us to integrate a custom configuration widget in the
 NINJA-IDE preferences. It is important that this is TRUNCATED! Please download
 `pandoc <http://johnmacfarlane.net/pandoc/>`_ if you want to convert large
@@ -144,7 +147,7 @@ Example
        def get_preferences_widget(self):
             pass
 
-Plugins Interfaces
+Plugins interfaces
 ------------------
 
 Some actions from plugins require objects with special interfaces. Here we
@@ -158,7 +161,7 @@ NINJA-IDE.::
 
         def get_pages(self):
             """
-            Should Returns a collection of QWizardPage or subclass
+            Should return a collection of QWizardPage or subclass
             """
 
         def on_wizard_finish(self, wizard):
@@ -168,7 +171,7 @@ NINJA-IDE.::
 
         def get_context_menus(self):
             """
-            Should Return an iterable of QMenu for the context type of the new project type
+            Should return an iterable of QMenu for the context type of the new project type
             """
 
 ISymbolsHandler
@@ -211,9 +214,9 @@ each one of these has differents features.
 editor
 ------
 
-This service allows to interact with the main parts of NINJA-IDE such as the
-editor, the tab manager, listen to signals which NINJA-IDE emitswhen saving
-a file, save project, change the current tab and others.
+This service allows to interact with the main parts of NINJA-IDE, such as the
+editor, the tab manager, listen to signals which NINJA-IDE emits when saving
+a file, save project, change the current tab, etc.
 
 Signals
 :::::::
@@ -222,79 +225,79 @@ Signals
 
 Emitted when the user presses a key.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.editorKeyPressEvent.connect(self._do_something)
     
     def do_something(self, event):
-        #the code go here!
+        #the code goes here!
 
 .. method:: beforeFileSaved(fileName)
 
 Emitted **before** the fileName is saved on disc.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.beforeFileSaved.connect(self._do_something)
     
     def do_something(self, fileName):
-        #the code go here!
+        #the code goes here!
 
 .. method:: fileSaved(fileName)
 
 Emitted when the user saves a file.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.fileSaved.connect(self._do_something)
     
     def do_something(self, fileName):
-        #the code go here!
+        #the code goes here!
 
 .. method:: currentTabChanged(fileName)
 
 Emitted when the user changes the current tab.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.currentTabChanged.connect(self._do_something)
     
     def do_something(self, fileName):
-        #the code go here!
+        #the code goes here!
 
 .. method:: fileExecuted(fileName)
 
 Emitted when the user executes a file.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.fileExecuted.connect(self._do_something)
     
     def do_something(self, fileName):
-        #the code go here!
+        #the code goes here!
 
 .. method:: fileOpened(fileName)
 
 Emitted when the user opens a file
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "editor"
     editor_service = self.locator.get_service(SERVICE_NAME)
     editor_service.fileOpened.connect(self._do_something)
     
     def do_something(self, fileName):
-        #the code go here!
+        #the code goes here!
 
 Methods
 :::::::
@@ -312,11 +315,12 @@ This method adds an extra context menu to the editor's context menu
 
 .. method:: get\_opened\_documents(self)
 
-This method returns the name of the open files.
+This method returns the name of the open file(s).
 
 .. method:: add\_editor(self, fileName="", content=None, syntax=None)
 
 This method creates a new editor.
+
 - fileName: Absolute path to a file
 - content: Content for the editor if not fileName
 - syntax: Syntax name, for example python
@@ -351,11 +355,11 @@ None.
 
 .. method:: insert\_text(self, text)
 
-This method inserts text in the current cursor position.
+This method inserts text into the current cursor position.
 
 .. method:: get\_file\_syntax(self, editorWidget=None)
 
-This method returns the syntax for the current file. The syntax isvrepresented
+This method returns the syntax for the current file. The syntax is represented
 as a dictionary that contains the descriptor that Ninja recognizes for each
 language (if the Editor Widget is not specified it returns the information from
 the current editor in focus).
@@ -374,7 +378,7 @@ This method saves the actual file.
 
 .. method:: open\_files(self, files, mainTab=True)
 
-This method opens many files, each one in a different editor.
+This method opens multiple files, each one in a different editor.
 
 .. method:: open\_file(self, fileName='', cursorPosition=0, positionIsLineNumber=False)
 
@@ -406,7 +410,7 @@ Methods
 This method allows to add an action (`QAction or subclass <http://doc.qt.nokia.com/latest/qaction.html>`_)
 to the toolbar.
 
-To add one action we should do::
+To add one action use::
 
     SERVICE_NAME = "toolbar"
     toolbar_service = self.locator.get_service(SERVICE_NAME)
@@ -423,7 +427,7 @@ When this code is added, the toolbar of NINJA-IDE looks like this:
    :align: center
    :alt: 
 
-Great! We have added one action to the toolbar of NINJA-IDE.
+Great! We have added an action to the toolbar of NINJA-IDE.
 
 menuApp
 ~~~~~~~
@@ -446,7 +450,7 @@ Methods
 This method allows to add a menu (`QMenu or subclass <http://doc.qt.nokia.com/latest/qmenu.html>`_)
 to the NINJA-IDE plugins menu.
 
-To add one menu to the NINJA-IDE we should do::
+To add one menu to the NINJA-IDE use::
 
     SERVICE_NAME = "menuApp"
     menu_service = self.locator.get_service(SERVICE_NAME)
@@ -468,7 +472,7 @@ When this code is added, the Plugins Menu of NINJA-IDE looks like this:
 This method allows to add an action (`QAction or subclass <http://doc.qt.nokia.com/latest/qaction.html>`_)
 to the NINJA-IDE plugins menu.
 
-To add one action to the NINJA-IDE we should do::
+To add one action to the NINJA-IDE use::
 
     SERVICE_NAME = "menuApp"
     menu_service = self.locator.get_service(SERVICE_NAME)
@@ -488,7 +492,7 @@ When this code is added, the Plugins Menu of NINJA-IDE looks like this:
 misc
 ~~~~
 
-This service allows to interact with the miscelaneos container (misc) of
+This service allows to interact with the miscellaneous container (misc) of
 NINJA-IDE. This container is at the bottom of the user interface. The
 container has a collection of widgets and shows an icon for each one them. Only
 one widget is visible at a time. We can add widgets
@@ -512,7 +516,7 @@ Methods
 This method allows to add widgets (`QWidget or subclass <http://doc.qt.nokia.com/latest/qwidget.html>`_)
 to the misc container.
 
-To add a widget to the misc container we should do::
+To add a widget to the misc container use::
 
     SERVICE_NAME = "misc"
     misc_service = self.locator.get_service(SERVICE_NAME)
@@ -530,7 +534,7 @@ When this code is added, the misc container of NINJA-IDE looks like this:
    :align: center
    :alt: 
 
-Great! We have added one widget with a
+Great! We have added a widget with a
 `QWebView <http://doc.qt.nokia.com/4.7-snapshot/qwebview.html>`_ to the misc
 container of NINJA-IDE.
 
@@ -540,7 +544,7 @@ explorer
 This service allows to interact with the NINJA-IDE explorer container which
 holds the `TreeProjectsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.2>`_ and the
 `TreeSymbolsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.5>`_. Before we explain
-the explorer service, we are going to see some important classes.
+the explorer service, we are going to see some important classes first.
 
 Methods
 :::::::
@@ -561,7 +565,7 @@ Note: This method is a shortcut of self.get\_tree\_projects().currentItem()
 .. method:: get\_project\_item\_by\_name(self, projeectName)
 
 Return a ProjectItem based on the name provided, or None if an item with that
-name can not be found.
+name can't be found.
 
 .. method:: set\_symbols\_handler(self, file\_extension, symbols\_handler)
 
@@ -570,7 +574,7 @@ Note: symbols\_handler SHOULD have a special interface.
 See: ninja\_ide.core.plugin\_interfaces.
 
 Example: If you want to add a new symbols handler for C++, your plugin should
-do the following::
+include the following code::
 
     SERVICE_NAME = 'explorer'
     self.explorer_s = self.locator.get_service(SERVICE_NAME)  
@@ -585,8 +589,8 @@ Add a new Project Type and the handler for it.
 Note: project\_type\_handler SHOULD have a special interface.
 See: ninja\_ide.core.plugin\_interfaces.
 
-Example: If you want to add a custom type of project, your pluging should do
-the following::
+Example: If you want to add a custom type of project, your pluging should
+include the following code::
 
     SERVICE_NAME = 'explorer'
     self.explorer_s = self.locator.get_service(SERVICE_NAME)
@@ -613,12 +617,12 @@ empty list if there aren't any opened projects.
 .. method:: add\_project\_menu(self, menu, lang='all')
 
 Add an extra menu(`QMenu orsubclass <http://doc.qt.nokia.com/4.7/qmenu.html>`_)
-to the project explorer for the files specified in lang.
+to the project explorer for files that are specified by lang.
 Note: lang is a file extension such as .php, .py, .cpp. If you want to add an
-extra menu for any kind of file, youneed to specify lang='all'.
+extra menu for any kind of file, you need to specify lang='all'.
 
 Example 1: If you want to add an extra menu for Python files, your
-plugin should do the following::
+plugin should include the following code::
 
     SERVICE_NAME = 'explorer'
     self.explorer_s = self.locator.get_service(SERVICE_NAME)
@@ -626,7 +630,7 @@ plugin should do the following::
     self.explorer_s.add_project_menu(extra_menu, lang='.php')
 
 Example 2: If you want to add an extra menu for all files, your plugin
-should do the following::
+should inlcude the following code::
 
     SERVICE_NAME = 'explorer'
     self.explorer_s = self.locator.get_service(SERVICE_NAME)
@@ -640,27 +644,27 @@ Signals
 
 Emitted when the user executes a project.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "explorer"
     explorer_service = self.locator.get_service(SERVICE_NAME)
     explorer_service.projectExecuted.connect(self._do_something)
     
     def do_something(self, projectPath):  
-        #the code go here!
+        #the code goes here!
 
 .. method:: projectOpened(projectPath)
 
 Emitted when the user opens a project.
 
-To connect the plugin to this signal do::
+To connect the plugin to this signal use::
 
     SERVICE_NAME = "explorer"
     explorer_service = self.locator.get_service(SERVICE_NAME)
     explorer_service.projectOpened.connect(self._do_something)
     
     def do_something(self, projectPath):
-        #the code go here!
+        #the code goes here!
 
 
 TreeProjectsWidget
@@ -733,12 +737,12 @@ TreeSymbolsWidget
 :::::::::::::::::
 
 This class inherits from
-`QTreeWidget <http://doc.qt.nokia.com/latest/qtreewidget.html>`_ and
-represents the content of a file **classes**, **methods**, **functions**
-and **global variables**. NINJA-IDE **only** handles symbols for Python
-files, but we can add handlers for differents files.
+`QTreeWidget <http://doc.qt.nokia.com/latest/qtreewidget.html>`_ and represents
+the content of a file **classes**, **methods**, **functions** and
+**global variables**. NINJA-IDE **only** handles symbols for Python files, but
+we can add handlers for differents files.
 
-TreeSymbolsWidget looks like:
+The TreeSymbolsWidget class looks like this:
 
 .. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/symbolstree.png
    :align: center
@@ -754,24 +758,22 @@ There are different methods to test your plugin:
 You have to move your plugin code and the plugin descriptor file to
 ~/.ninja\_ide/addins/plugins/. Re run NINJA-IDE and see what happens.
 
--  ** `pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ (Recommended
-   way)**
+-  ** `pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ (Recommended way)**
 
 You have to install the oficial
-`pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ plugin, create a new
-project, select the **NINJA-Plugin-Project** type and follow the wizard.
+`pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ plugin, create a new project,
+select the **NINJA-Plugin-Project** -type and follow the wizard.
 When you've finished the wizard, the new project will be opened and some code
 will be included into some files. Go to the root of the project and right-click
 in it. Go to **"Plugin Tools"** and then select **"Test this plugin on
-NINJA-IDE"**. This will launch a new instance of NINJA-IDE with your
-plugin.
+NINJA-IDE"**. This will launch a new instance of NINJA-IDE with your plugin.
 
 -  ** NINJA-IDE embedded console (Recommended way)**
 
-You can test the NINJA-IDE plugins API using the embedded console in
-NINJA-IDE. To do this you have to open the console (F4) and write your
-plugin code. You will see the results in real time on NINJA-IDE. For
-example, see the session below when the user is playing with the API.
+You can test the NINJA-IDE plugins API using the embedded console in NINJA-IDE.
+To do this you have to open the console (F4) and write your plugin code. You
+will see the results in real time on NINJA-IDE.
+For example, see the session below when the user is playing with the API:
 
 .. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/playing_with_the_API.png
    :align: center
@@ -780,9 +782,9 @@ example, see the session below when the user is playing with the API.
 Debugging you plugin
 --------------------
 
-When you install/test a plugin, it could fail. If the plugin fails,
-NINJA-IDE shows you a dialog with information (plugin name and
-traceback) about it. The image below shows how NINJA-IDE reports plugin errors.
+When you install/test a plugin, it could fail. If the plugin fails, NINJA-IDE
+shows you a dialog with information (plugin name and traceback) about it. The
+image below shows how NINJA-IDE reports plugin errors.
 
 .. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/traceback_widget.png
    :align: center
