@@ -30,8 +30,8 @@ dependencies:
 -  MAC OS: macfsevents ($ pip install macfsevents)
 
 Then, if you have Git installed, you can clone the NINJA-IDE repository like
-this:
-:::::
+this:::
+
     $ git clone https://github.com/ninja-ide/ninja-ide.git
 
 Or you can get the latest version of the code by downloading this zip:
@@ -44,9 +44,9 @@ some kind of new bugs might appear... The good news is that you can be the first
 one reporting these kind of things and help us fix it faster)
 
 Ok, so... let's execute NINJA-IDE from sources. Go to the ninja-ide folder (the
- ne where you cloned the repository to, or where you uncompressed the zip file),
-and just type:
-::::::::::::::
+one where you cloned the repository to, or where you uncompressed the zip file),
+and just type:::
+
     $ python ninja-ide.py
 
 And you are done!
