@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Ninja IDE'
-copyright = u'2012, Not me'
+copyright = u'2010-2012. NINJA-IDE is a GPL Project. All rights are protected by ninjas, so watch out, punk! Just kidding. But we totally see you.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
