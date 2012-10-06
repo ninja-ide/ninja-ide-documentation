@@ -1,9 +1,9 @@
-===============
-Plugin Tutorial
-===============
+==================
+2. Plugin Tutorial
+==================
 
-Why do we need plugins on NINJA-IDE?
-====================================
+2.1 Why do we need plugins on NINJA-IDE?
+========================================
 
 Plugins are small pieces of code that can interact with NINJA-IDE and add
 specific features to it. This is useful if you want to have special features
@@ -14,20 +14,20 @@ project, but that task could be hard for many reasons. In these cases plugins
 are a good option to collaborate. You just need to learn the project API.
 
 
-Architecture
-============
+2.2 Architecture
+================
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/architecture.png
+.. image:: ../images/architecture.png
    :align: center
-      :alt: 
 
-      The image above shows the connections between plugins and NINJA-IDE.
-      Plugins get services by using a service locator The service locator
-      returns the specific service and the plugin uses this service to
-      talk with NINJA-IDE
+The image above shows the connection between plugins and NINJA-IDE. Plugins get
+services by using a service locator. The service locator returns the specific
+service and the plugin uses this service to talk with NINJA-IDE.
 
-How to create plugins
-=====================
+.. _createPlugin:
+
+2.3 How to create plugins
+=========================
 
 We recommend that you install and use the oficial plugin called
 **pluginProject**. That plugin helps you to create the skeleton of all plugins
@@ -36,12 +36,11 @@ and packages your plugin to share it. You can install**pluginProject** from the
 Plugin Manager inside NINJA-IDE (Go to the Plugins menu and choose
 *Manage Plugins*).
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/install_pluginProject.png
+.. image:: ../images/install_screen.png
    :align: center
-   :alt: 
 
-Plugin Descriptor file
-----------------------
+2.3.1 Plugin Descriptor file
+----------------------------
 
 This is just a JSON notation file with the extension “.plugin”. This file helps
 NINJA-IDE to detect and manage your plugin. The following information about the
@@ -65,8 +64,8 @@ plugin should be included:::
    here).
 -  description: Plugin description.
 
-Service locator class
----------------------
+2.3.2 Service locator class
+---------------------------
 
 This class provides an easy way to request and get the NINJA-IDE services for
 your plugin. This class has two methods: one to get a service and one to get the
@@ -81,12 +80,15 @@ To check all the available services::
        for service_name in service_locator.get_availables_services():
           print service_name
 
-Plugin class
-------------
+2.3.3 Plugin class
+------------------
 
 All plugins must inherit from this class. This is the base class that NINJA-IDE
-provides to create plugins. This class also inherits from `QObject`_. Because
-of that your plugins are compatible with `signals/slots`_ of the Qt library.
+provides to create plugins. This class also inherits from
+`QObject <http://doc.qt.digia.com/latest/qobject.html>`_. Because
+of that your plugins are compatible with
+`signals/slots <http://doc.qt.digia.com/latest/signalsandslots.html>`_
+of the Qt library.
 
 Attributes
 ~~~~~~~~~~
@@ -98,10 +100,11 @@ Attributes
 -  self.logger: An instance of `PluginLogger`_.
 
 PluginLogger
-::::::::::::
+~~~~~~~~~~~~
 
 This is the logger for plugins. It allows to record events occured on plugins.
-This is a wrapper over the logging.Logger class of the `logging`_ module.
+This is a wrapper over the logging.Logger class of the
+`logging <http://docs.python.org/library/logging.html#logger-objects>`_ module.
 
 Methods
 ~~~~~~~
@@ -147,8 +150,8 @@ Example
        def get_preferences_widget(self):
             pass
 
-Plugins interfaces
-------------------
+2.3.4 Plugins interfaces
+------------------------
 
 Some actions from plugins require objects with special interfaces. Here we
 describe the possible interfaces.
@@ -204,19 +207,20 @@ NOTE: Must return the following structure::
                              }     
        }
 
-Services
---------
+2.3.5 Services
+--------------
 
 Services are the way that plugins talk with NINJA-IDE. Conceptually services
 are proxies to NINJA-IDE components. NINJA-IDE defines differents components,
 each one of these has differents features.
 
 editor
-------
+~~~~~~
 
 This service allows to interact with the main parts of NINJA-IDE, such as the
 editor, the tab manager, listen to signals which NINJA-IDE emits when saving
 a file, save project, change the current tab, etc.
+
 
 Signals
 :::::::
@@ -299,6 +303,7 @@ To connect the plugin to this signal use::
     def do_something(self, fileName):
         #the code goes here!
 
+
 Methods
 :::::::
 
@@ -306,12 +311,12 @@ Methods
 
 This method returns the TabWidget
 (ninja\_ide.gui.main\_panel.tab\_widget.TabWidget) subclass of
-`QTabWidget <http://doc.qt.nokia.com/4.7/qtabwidget.html>`_.
+`QTabWidget <http://doc.qt.digia.com/latest/qtabwidget.html>`_.
 
 .. method:: add\_menu(self, menu, lang=".py")
 
 This method adds an extra context menu to the editor's context menu
-(`QMenu or subclass <http://doc.qt.nokia.com/4.7/qmenu.html>`_).
+(`QMenu <http://doc.qt.digia.com/latest/qmenu.html>`_).
 
 .. method:: get\_opened\_documents(self)
 
@@ -392,23 +397,21 @@ toolbar
 ~~~~~~~
 
 This service allows to interact with the toolbar of NINJA-IDE. The toolbar is
-an instance of `QToolbar <http://doc.qt.nokia.com/latest/qtoolbar.html>`_, so
-we can add actions (`QAction <http://doc.qt.nokia.com/latest/qaction.html>`_)
+an instance of `QToolbar <http://doc.qt.digia.com/latest/qtoolbar.html>`_, so
+we can add actions (`QAction <http://doc.qt.digia.com/latest/qaction.html>`_)
 to it.
 
 By default the toolbar of NINJA-IDE looks like the image below:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/toolbar_base.png
+.. image:: ../images/toolbar_base.png
    :align: center
-   :alt: 
 
 Methods
 :::::::
 
 .. method:: add\_action(self, action)
 
-This method allows to add an action (`QAction or subclass <http://doc.qt.nokia.com/latest/qaction.html>`_)
-to the toolbar.
+This method allows to add an action (`QAction`_) to the toolbar.
 
 To add one action use::
 
@@ -423,9 +426,8 @@ To add one action use::
 
 When this code is added, the toolbar of NINJA-IDE looks like this:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/toolbar_agregado.png
+.. image:: ../images/toolbar_agregado.png
    :align: center
-   :alt: 
 
 Great! We have added an action to the toolbar of NINJA-IDE.
 
@@ -433,21 +435,19 @@ menuApp
 ~~~~~~~
 
 This service allows to interact with the **Plugins** menu of NINJA-IDE.
-We can insert menus (`QMenu <http://doc.qt.nokia.com/latest/qmenu.html>`_)
-or/and actions (`QAction <http://doc.qt.nokia.com/latest/qaction.html>`_).
+We can insert menus (`QMenu`_) or/and actions (`QAction`_).
 
 By default the Plugins Menu of NINJA-IDE looks like the image below:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/menu_plugin_base.png
+.. image:: ../images/menu_plugin_base.png
    :align: center
-   :alt: 
 
 Methods
 :::::::
 
 .. method:: add\_menu(self, menu)
 
-This method allows to add a menu (`QMenu or subclass <http://doc.qt.nokia.com/latest/qmenu.html>`_)
+This method allows to add a menu (`QMenu`_)
 to the NINJA-IDE plugins menu.
 
 To add one menu to the NINJA-IDE use::
@@ -463,14 +463,12 @@ To add one menu to the NINJA-IDE use::
 
 When this code is added, the Plugins Menu of NINJA-IDE looks like this:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/menu_plugin_agregado.png
+.. image:: ../images/menu_plugin_agregado.png
    :align: center
-   :alt: 
 
 .. method:: add\_action(self, action)
 
-This method allows to add an action (`QAction or subclass <http://doc.qt.nokia.com/latest/qaction.html>`_)
-to the NINJA-IDE plugins menu.
+This method allows to add an action (`QAction`_) to the NINJA-IDE plugins menu.
 
 To add one action to the NINJA-IDE use::
 
@@ -485,9 +483,8 @@ To add one action to the NINJA-IDE use::
 
 When this code is added, the Plugins Menu of NINJA-IDE looks like this:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/menu_plugin_action_agregado.png
+.. image:: ../images/menu_plugin_action_agregado.png
    :align: center
-   :alt: 
 
 misc
 ~~~~
@@ -496,12 +493,12 @@ This service allows to interact with the miscellaneous container (misc) of
 NINJA-IDE. This container is at the bottom of the user interface. The
 container has a collection of widgets and shows an icon for each one them. Only
 one widget is visible at a time. We can add widgets
-(`QWidget or subclass <http://doc.qt.nokia.com/latest/qwidget.html>`_) to the
-misc container.
+(`QWidget <http://doc.qt.digia.com/latest/qwidget.html>`_) to the misc
+container.
 
 By default the Plugins Menu of NINJA-IDE looks like the image below:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/misc_base.png
+.. image:: ../images/misc_base.png
    :align: center
    :alt: 
 
@@ -513,8 +510,7 @@ Methods
 
 .. method:: add\_widget(self, widget, icon\_path, description)
 
-This method allows to add widgets (`QWidget or subclass <http://doc.qt.nokia.com/latest/qwidget.html>`_)
-to the misc container.
+This method allows to add widgets (`QWidget`_) to the misc container.
 
 To add a widget to the misc container use::
 
@@ -530,9 +526,8 @@ To add a widget to the misc container use::
 
 When this code is added, the misc container of NINJA-IDE looks like this:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/misc_agregado.png
+.. image:: ../images/misc_agregado.png
    :align: center
-   :alt: 
 
 Great! We have added a widget with a
 `QWebView <http://doc.qt.nokia.com/4.7-snapshot/qwebview.html>`_ to the misc
@@ -542,20 +537,19 @@ explorer
 ~~~~~~~~
 
 This service allows to interact with the NINJA-IDE explorer container which
-holds the `TreeProjectsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.2>`_ and the
-`TreeSymbolsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.5>`_. Before we explain
-the explorer service, we are going to see some important classes first.
+holds the :ref:`TreeProjectsWidget` and the :ref:`TreeSymbolsWidget`. Before we
+explain the explorer service, we are going to see some important classes first.
 
 Methods
 :::::::
 
 .. method:: get\_tree\_projects(self)
 
-Returns the `TreeProjectsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.2>`_.
+Returns the :ref:`TreeProjectsWidget`.
 
 .. method:: get\_tree\_symbols(self)
 
-Returns the `TreeSymbolsWidget </p/ninja-ide/wiki/APIDetails#3.5.5.5>`_.
+Returns the :ref:`TreeSymbolsWidget`.
 
 .. method:: get\_current\_project\_item(self)
 
@@ -602,8 +596,7 @@ foo\_project\_handler instance controls the wizard.
 
 .. method:: add\_tab(self, tab, title)
 
-Add a tab (`QTabWidget or subclass <http://doc.qt.nokia.com/4.7/qtabwidget.html>`_)
-with the given title (string).
+Add a tab (`QTabWidget`_) with the given title (string).
 
 .. method:: get\_actual\_project(self)
 
@@ -616,7 +609,7 @@ empty list if there aren't any opened projects.
 
 .. method:: add\_project\_menu(self, menu, lang='all')
 
-Add an extra menu(`QMenu orsubclass <http://doc.qt.nokia.com/4.7/qmenu.html>`_)
+Add an extra menu(`QMenu`_)
 to the project explorer for files that are specified by lang.
 Note: lang is a file extension such as .php, .py, .cpp. If you want to add an
 extra menu for any kind of file, you need to specify lang='all'.
@@ -666,24 +659,24 @@ To connect the plugin to this signal use::
     def do_something(self, projectPath):
         #the code goes here!
 
+.. _TreeProjectsWidget:
 
 TreeProjectsWidget
 ::::::::::::::::::
 
 This class inherits from
-`QTreeWidget <http://doc.qt.nokia.com/latest/qtreewidget.html>`_ and
+`QTreeWidget <http://doc.qt.digia.com/latest/qtreewidget.html>`_ and
 represents a tree with all the NINJA-IDE projects and their content
 (folders and files).
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/treeprojects.png
+.. image:: ../images/treeprojects.png
    :align: center
-   :alt: 
 
 ProjectTree
 :::::::::::
 
 This class inherits from
-`QTreeWidgetItem <http://doc.qt.nokia.com/latest/qtreewidgetitem.html>`_
+`QTreeWidgetItem <http://doc.qt.digia.com/latest/qtreewidgetitem.html>`_
 and is used to represent projects (root of tree).
 
 This class contains general information about the project:
@@ -700,56 +693,46 @@ This class contains general information about the project:
 -  self.programParams
 -  self.venv
 
-Methods
-_______
+.. method:: def lang(self)
 
-def lang(self)
-^^^^^^^^^^^^^^
 Returns the programming language of the project.
 
-
-def get\_full\_path(self)
-^^^^^^^^^^^^^^^^^^^^^^^^^
+.. method:: def get\_full\_path(self)
 
 Returns the full path of the project.
 
 ProjectItem
 :::::::::::
 
-This class inherits from
-`QTreeWidgetItem <http://doc.qt.nokia.com/latest/qtreewidgetitem.html>`_
-and is used to represent the content of projects (folder and files).
+This class inherits from `QTreeWidgetItem`_ and is used to represent the content
+of projects (folder and files).
 
 This class contains general information about the file.
 
 -  self.path: Absolute path to the given item (folder or file).
 -  self.isFolder: Boolean value depending on the item is folder or item.
 
-Methods
-_______
-
-def get\_full\_path(self)
-^^^^^^^^^^^^^^^^^^^^^^^^^
+.. method:: def get\_full\_path(self)
 
 Returns the full path of the file.
+
+.. _TreeSymbolsWidget:
 
 TreeSymbolsWidget
 :::::::::::::::::
 
-This class inherits from
-`QTreeWidget <http://doc.qt.nokia.com/latest/qtreewidget.html>`_ and represents
-the content of a file **classes**, **methods**, **functions** and
-**global variables**. NINJA-IDE **only** handles symbols for Python files, but
-we can add handlers for differents files.
+This class inherits from `QTreeWidget`_ and represents the content of a file
+**classes**, **methods**, **functions** and **global variables**. NINJA-IDE
+**only** handles symbols for Python files, but we can add handlers for
+different files.
 
 The TreeSymbolsWidget class looks like this:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/symbolstree.png
+.. image:: ../images/symbolstree.png
    :align: center
-   :alt: 
 
-Testing your plugin
--------------------
+2.4 Testing your plugin
+-----------------------
 
 There are different methods to test your plugin:
 
@@ -758,35 +741,33 @@ There are different methods to test your plugin:
 You have to move your plugin code and the plugin descriptor file to
 ~/.ninja\_ide/addins/plugins/. Re run NINJA-IDE and see what happens.
 
--  ** `pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ (Recommended way)**
+-  **pluginProject (Recommended way)**
 
-You have to install the oficial
-`pluginProject </p/ninja-ide/wiki/APIDetails#3>`_ plugin, create a new project,
-select the **NINJA-Plugin-Project** -type and follow the wizard.
-When you've finished the wizard, the new project will be opened and some code
-will be included into some files. Go to the root of the project and right-click
-in it. Go to **"Plugin Tools"** and then select **"Test this plugin on
-NINJA-IDE"**. This will launch a new instance of NINJA-IDE with your plugin.
+You have to install the oficial :ref:`pluginProject <createPlugin>` plugin,
+create a new project, select the **NINJA-Plugin-Project** -type and follow the
+wizard. When you've finished the wizard, the new project will be opened and some
+code will be included into some files. Go to the root of the project and
+right-click in it. Go to **"Plugin Tools"** and then select
+**"Test this plugin on NINJA-IDE"**. This will launch a new instance of
+NINJA-IDE with your plugin.
 
--  ** NINJA-IDE embedded console (Recommended way)**
+-  **NINJA-IDE embedded console (Recommended way)**
 
 You can test the NINJA-IDE plugins API using the embedded console in NINJA-IDE.
 To do this you have to open the console (F4) and write your plugin code. You
 will see the results in real time on NINJA-IDE.
 For example, see the session below when the user is playing with the API:
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/playing_with_the_API.png
+.. image:: ../images/playing_with_the_API.png
    :align: center
-   :alt: 
 
-Debugging you plugin
---------------------
+2.5 Debugging you plugin
+------------------------
 
 When you install/test a plugin, it could fail. If the plugin fails, NINJA-IDE
 shows you a dialog with information (plugin name and traceback) about it. The
 image below shows how NINJA-IDE reports plugin errors.
 
-.. figure:: http://plugins.ninja-ide.googlecode.com/hg/ninja_img/traceback_widget.png
+.. image:: ../images/traceback_widget.png
    :align: center
-   :alt: 
 
