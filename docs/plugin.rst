@@ -1,9 +1,9 @@
-==================
-2. Plugin Tutorial
-==================
+===============
+Plugin Tutorial
+===============
 
-2.1 Why do we need plugins on NINJA-IDE?
-========================================
+Why do we need plugins on NINJA-IDE?
+====================================
 
 Plugins are small pieces of code that can interact with NINJA-IDE and add
 specific features to it. This is useful if you want to have special features
@@ -14,8 +14,8 @@ project, but that task could be hard for many reasons. In these cases plugins
 are a good option to collaborate. You just need to learn the project API.
 
 
-2.2 Architecture
-================
+Architecture
+============
 
 .. image:: ../images/architecture.png
    :align: center
@@ -26,8 +26,8 @@ service and the plugin uses this service to talk with NINJA-IDE.
 
 .. _createPlugin:
 
-2.3 How to create plugins
-=========================
+How to create plugins
+=====================
 
 We recommend that you install and use the oficial plugin called
 **pluginProject**. That plugin helps you to create the skeleton of all plugins
@@ -39,8 +39,8 @@ Plugin Manager inside NINJA-IDE (Go to the Plugins menu and choose
 .. image:: ../images/install_screen.png
    :align: center
 
-2.3.1 Plugin Descriptor file
-----------------------------
+Plugin Descriptor file
+----------------------
 
 This is just a JSON notation file with the extension “.plugin”. This file helps
 NINJA-IDE to detect and manage your plugin. The following information about the
@@ -64,8 +64,8 @@ plugin should be included:::
    here).
 -  description: Plugin description.
 
-2.3.2 Service locator class
----------------------------
+Service locator class
+---------------------
 
 This class provides an easy way to request and get the NINJA-IDE services for
 your plugin. This class has two methods: one to get a service and one to get the
@@ -80,8 +80,8 @@ To check all the available services::
        for service_name in service_locator.get_availables_services():
           print service_name
 
-2.3.3 Plugin class
-------------------
+Plugin class
+------------
 
 All plugins must inherit from this class. This is the base class that NINJA-IDE
 provides to create plugins. This class also inherits from
@@ -150,8 +150,8 @@ Example
        def get_preferences_widget(self):
             pass
 
-2.3.4 Plugins interfaces
-------------------------
+Plugins interfaces
+------------------
 
 Some actions from plugins require objects with special interfaces. Here we
 describe the possible interfaces.
@@ -207,8 +207,8 @@ NOTE: Must return the following structure::
                              }     
        }
 
-2.3.5 Services
---------------
+Services
+--------
 
 Services are the way that plugins talk with NINJA-IDE. Conceptually services
 are proxies to NINJA-IDE components. NINJA-IDE defines differents components,
@@ -731,8 +731,8 @@ The TreeSymbolsWidget class looks like this:
 .. image:: ../images/symbolstree.png
    :align: center
 
-2.4 Testing your plugin
------------------------
+Testing your plugin
+-------------------
 
 There are different methods to test your plugin:
 
@@ -761,8 +761,8 @@ For example, see the session below when the user is playing with the API:
 .. image:: ../images/playing_with_the_API.png
    :align: center
 
-2.5 Debugging you plugin
-------------------------
+Debugging you plugin
+--------------------
 
 When you install/test a plugin, it could fail. If the plugin fails, NINJA-IDE
 shows you a dialog with information (plugin name and traceback) about it. The
