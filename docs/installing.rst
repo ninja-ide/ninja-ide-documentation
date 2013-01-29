@@ -37,10 +37,13 @@ Or you can get the latest version of the code by downloading this zip:
 
 https://github.com/ninja-ide/ninja-ide/zipball/master
 
-**Now you have everything you need to execute NINJA-IDE from source!** (WARNING:
-we always try to keep the repository stable, but with the latest code, some
-kind of new bugs might appear... The good news is that you can be the first one
-reporting these kind of things and help us fix it faster)
+**Now you have everything you need to execute NINJA-IDE from source!** 
+
+.. warning::
+
+   We always try to keep the repository stable, but with the latest code, 
+   some kind of new bugs might appear... The good news is that you can be the
+   first one reporting these kind of things and help us fix it faster.
 
 Ok, so... let's execute NINJA-IDE from source. Go to the ninja-ide folder (the
 one where you cloned the repository to, or where you uncompressed the zip
