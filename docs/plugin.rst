@@ -52,7 +52,7 @@ plugin should be included:::
       "authors": "Martin Alderete <malderete@gmail.com>",
       "version": "0.1",
       "url": "http://code.google.com/p/ninja-ide",
-      "description": "Este plugin es de prueba"
+      "description": "This plugin is a test"
     }
 
 -  module: Indicates the name of the module where the plugin class
@@ -85,9 +85,9 @@ Plugin class
 
 All plugins must inherit from this class. This is the base class that NINJA-IDE
 provides to create plugins. This class also inherits from
-`QObject <http://doc.qt.digia.com/latest/qobject.html>`_. Because
+`QObject <http://qt-project.org/doc/qt-5.0/qtcore/qobject.html>`_. Because
 of that your plugins are compatible with
-`signals/slots <http://doc.qt.digia.com/latest/signalsandslots.html>`_
+`signals/slots <http://qt-project.org/doc/qt-5.0/qtcore/signalsandslots.html>`_
 of the Qt library.
 
 Attributes
@@ -311,12 +311,12 @@ Methods
 
 This method returns the TabWidget
 (ninja\_ide.gui.main\_panel.tab\_widget.TabWidget) subclass of
-`QTabWidget <http://doc.qt.digia.com/latest/qtabwidget.html>`_.
+`QTabWidget <http://qt-project.org/doc/qt-5.0/qtwidgets/qtabwidget.html>`_.
 
 .. method:: add\_menu(self, menu, lang=".py")
 
 This method adds an extra context menu to the editor's context menu
-(`QMenu <http://doc.qt.digia.com/latest/qmenu.html>`_).
+(`QMenu <http://qt-project.org/doc/qt-5.0/qtwidgets/qmenu.html>`_).
 
 .. method:: get\_opened\_documents(self)
 
@@ -397,8 +397,8 @@ toolbar
 ~~~~~~~
 
 This service allows to interact with the toolbar of NINJA-IDE. The toolbar is
-an instance of `QToolbar <http://doc.qt.digia.com/latest/qtoolbar.html>`_, so
-we can add actions (`QAction <http://doc.qt.digia.com/latest/qaction.html>`_)
+an instance of `QToolbar <http://qt-project.org/doc/qt-5.0/qtwidgets/qtoolbar.html>`_, so
+we can add actions (`QAction <http://qt-project.org/doc/qt-5.0/qtwidgets/qaction.html>`_)
 to it.
 
 By default the toolbar of NINJA-IDE looks like the image below:
@@ -491,10 +491,10 @@ misc
 
 This service allows to interact with the miscellaneous container (misc) of
 NINJA-IDE. This container is at the bottom of the user interface. The
-container has a collection of widgets and shows an icon for each one them. Only
-one widget is visible at a time. We can add widgets
-(`QWidget <http://doc.qt.digia.com/latest/qwidget.html>`_) to the misc
-container.
+container has a collection of widgets and shows an icon for each one them. 
+Only one widget is visible at a time. We can add widgets
+(`QWidget <http://qt-project.org/doc/qt-5.0/qtwidgets/qwidget.html>`_) to the 
+misc container.
 
 By default the Plugins Menu of NINJA-IDE looks like the image below:
 
@@ -530,8 +530,8 @@ When this code is added, the misc container of NINJA-IDE looks like this:
    :align: center
 
 Great! We have added a widget with a
-`QWebView <http://doc.qt.nokia.com/4.7-snapshot/qwebview.html>`_ to the misc
-container of NINJA-IDE.
+`QWebView <http://qt-project.org/doc/qt-5.0/qtwebkit/qwebview.html>`_ to the 
+misc container of NINJA-IDE.
 
 explorer
 ~~~~~~~~
@@ -676,7 +676,7 @@ ProjectTree
 :::::::::::
 
 This class inherits from
-`QTreeWidgetItem <http://doc.qt.digia.com/latest/qtreewidgetitem.html>`_
+`QTreeWidgetItem <http://qt-project.org/doc/qt-5.0/qtwidgets/qtreewidget.html>`_
 and is used to represent projects (root of tree).
 
 This class contains general information about the project:
