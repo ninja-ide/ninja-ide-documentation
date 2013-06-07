@@ -761,8 +761,8 @@ For example, see the session below when the user is playing with the API:
 .. image:: ../images/playing_with_the_API.png
    :align: center
 
-Debugging you plugin
---------------------
+Debugging your plugin
+---------------------
 
 When you install/test a plugin, it could fail. If the plugin fails, NINJA-IDE
 shows you a dialog with information (plugin name and traceback) about it. The
