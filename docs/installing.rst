@@ -22,7 +22,7 @@ enjoy always from the latest changes in the code (Also, if you are an alien
 please let us know. We will definitely like to hear about that). To execute
 NINJA-IDE from sources you just need to satisfy a small set of dependencies:
 
--  Python >= `2.7 <http://www.python.org/download/>`_ (Not Python 3 yet)
+-  Python >= `2.7 <http://www.python.org/download/>`_ (or Python 3)
 -  PyQt >= `4.8 <http://www.riverbankcomputing.co.uk/software/pyqt/intro>`_
 -  Linux: pyinotify (Ubuntu$ sudo apt-get install python-pyinotify)
 -  Windows: `pywin32 <http://sourceforge.net/projects/pywin32/files/>`_
