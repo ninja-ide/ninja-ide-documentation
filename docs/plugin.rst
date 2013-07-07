@@ -517,7 +517,7 @@ To add a widget to the misc container use::
     SERVICE_NAME = "misc"
     misc_service = self.locator.get_service(SERVICE_NAME)
     
-    #instanciate a QWidget (or subclass)
+    #instantiate a QWidget (or subclass)
     my_widget = QWidget(...)icon_path = "some_plate/where/the/icon/is.png"
     description = "This is my widget in NINJA-IDE"
     
