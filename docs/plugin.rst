@@ -29,7 +29,7 @@ service and the plugin uses this service to talk with NINJA-IDE.
 How to create plugins
 =====================
 
-We recommend that you install and use the oficial plugin called
+We recommend that you install and use the official plugin called
 **pluginProject**. That plugin helps you to create the skeleton of all plugins
 for NINJA-IDE. That plugin allows you to test your plugin on NINJA-IDE as well
 and packages your plugin to share it. You can install**pluginProject** from the
@@ -102,7 +102,7 @@ Attributes
 PluginLogger
 ~~~~~~~~~~~~
 
-This is the logger for plugins. It allows to record events occured on plugins.
+This is the logger for plugins. It allows to record events occurred on plugins.
 This is a wrapper over the logging.Logger class of the
 `logging <http://docs.python.org/library/logging.html#logger-objects>`_ module.
 
@@ -211,8 +211,8 @@ Services
 --------
 
 Services are the way that plugins talk with NINJA-IDE. Conceptually services
-are proxies to NINJA-IDE components. NINJA-IDE defines differents components,
-each one of these has differents features.
+are proxies to NINJA-IDE components. NINJA-IDE defines different components,
+each one of these has different features.
 
 editor
 ~~~~~~
@@ -556,7 +556,7 @@ Returns the :ref:`TreeSymbolsWidget`.
 Returns the current item of the tree projects (if possible).
 Note: This method is a shortcut of self.get\_tree\_projects().currentItem()
 
-.. method:: get\_project\_item\_by\_name(self, projeectName)
+.. method:: get\_project\_item\_by\_name(self, projectName)
 
 Return a ProjectItem based on the name provided, or None if an item with that
 name can't be found.
@@ -583,7 +583,7 @@ Add a new Project Type and the handler for it.
 Note: project\_type\_handler SHOULD have a special interface.
 See: ninja\_ide.core.plugin\_interfaces.
 
-Example: If you want to add a custom type of project, your pluging should
+Example: If you want to add a custom type of project, your plugin should
 include the following code::
 
     SERVICE_NAME = 'explorer'
@@ -623,7 +623,7 @@ plugin should include the following code::
     self.explorer_s.add_project_menu(extra_menu, lang='.php')
 
 Example 2: If you want to add an extra menu for all files, your plugin
-should inlcude the following code::
+should include the following code::
 
     SERVICE_NAME = 'explorer'
     self.explorer_s = self.locator.get_service(SERVICE_NAME)
@@ -743,7 +743,7 @@ You have to move your plugin code and the plugin descriptor file to
 
 -  **pluginProject (Recommended way)**
 
-You have to install the oficial :ref:`pluginProject <createPlugin>` plugin,
+You have to install the official :ref:`pluginProject <createPlugin>` plugin,
 create a new project, select the **NINJA-Plugin-Project** -type and follow the
 wizard. When you've finished the wizard, the new project will be opened and some
 code will be included into some files. Go to the root of the project and
