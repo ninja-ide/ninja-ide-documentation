@@ -418,7 +418,7 @@ To add one action use::
     SERVICE_NAME = "toolbar"
     toolbar_service = self.locator.get_service(SERVICE_NAME)
     
-    #instanciate a QAction (or subclass)
+    #instantiate a QAction (or subclass)
     one_Action = QAction(...)
     
     #add the action to the toolbar of NINJA-IDE
@@ -455,7 +455,7 @@ To add one menu to the NINJA-IDE use::
     SERVICE_NAME = "menuApp"
     menu_service = self.locator.get_service(SERVICE_NAME)
     
-    #instanciate a QMenu (or subclass)
+    #instantiate a QMenu (or subclass)
     one_menu = QMenu(...)
     
     #add the menu to NINJA-IDE
@@ -475,7 +475,7 @@ To add one action to the NINJA-IDE use::
     SERVICE_NAME = "menuApp"
     menu_service = self.locator.get_service(SERVICE_NAME)
     
-    #instanciate a QAction (or subclass)
+    #instantiate a QAction (or subclass)
     one_action = QAction(...)
     
     #add the action to NINJA-IDE
