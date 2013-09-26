@@ -14,6 +14,20 @@ There you will be able to find installers for Linux, Windows and Mac. Once you
 download the proper package for your system, you just need to execute that
 package and you will be able to be coding in NINJA-IDE in a heartbeat!
 
+Installation on Mac OS with Homebrew
+------------------------------------
+It is also possible to install Ninja-IDE on Mac OS X with `Homebrew
+<http://brew.sh>`_ by using the command: ::
+
+    brew install ninja-ide
+
+When Ninja-IDE is installed you can start the application by typing: ::
+
+    $ ninja-ide
+
+Make sure that macfsevents (``$ pip install macfsevents``) is installed before
+you install Ninja-IDE.
+
 Executing NINJA-IDE from source
 ===============================
 
@@ -29,7 +43,7 @@ NINJA-IDE from sources you just need to satisfy a small set of dependencies:
 -  MAC OS: macfsevents ($ pip install macfsevents)
 
 Then, if you have Git installed, you can clone the NINJA-IDE repository like
-this:::
+this: ::
 
     $ git clone https://github.com/ninja-ide/ninja-ide.git
 
@@ -37,11 +51,11 @@ Or you can get the latest version of the code by downloading this zip:
 
 https://github.com/ninja-ide/ninja-ide/zipball/master
 
-**Now you have everything you need to execute NINJA-IDE from source!** 
+**Now you have everything you need to execute NINJA-IDE from source!**
 
 .. warning::
 
-   We always try to keep the repository stable, but with the latest code, 
+   We always try to keep the repository stable, but with the latest code,
    some kind of new bugs might appear... The good news is that you can be the
    first one reporting these kind of things and help us fix it faster.
 
