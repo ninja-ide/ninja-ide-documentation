@@ -61,7 +61,7 @@ https://github.com/ninja-ide/ninja-ide/zipball/master
 
 Ok, so... let's execute NINJA-IDE from source. Go to the ninja-ide folder (the
 one where you cloned the repository to, or where you uncompressed the zip
-file), and just type:::
+file), and just type: ::
 
     $ python ninja-ide.py
 
